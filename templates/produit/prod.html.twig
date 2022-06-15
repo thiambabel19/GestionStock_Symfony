@@ -1,0 +1,42 @@
+{% extends 'accueil.html.twig' %}
+
+{% block title %}Gestion des produits{% endblock %}
+
+{% block head %}Produits{% endblock %}
+
+{% block body %}
+    <div class="container col-md-12">
+        
+        <div class="row">
+            <div class="container col-md-6">
+            <div class="card">
+                <h4 class="card-header text-center">Liste des produits</h4>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <th>ID</th>
+                        <th>LIBELLE</th>
+                        <th>STOCK</th>
+                        <th>CATEGORIE</th>
+                    {% for c in produits %}
+                        <tr>
+                            <td>{{ c.id }}</td>
+                            <td>{{ c.libelle }}</td>
+                            <td>{{ c.stock }}</td>
+                            <td class="text-left">{{ c.categorie }}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+         <div class="container col-md-6">
+            <div class="card">
+                <h4 class="card-header text-center">Formulaire d'ajout d'un produit</h4>
+                <div class="card-body mt-3">
+                     {{ form(form) }} 
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

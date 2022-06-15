@@ -1,0 +1,44 @@
+{% extends 'accueil.html.twig' %}
+
+{% block title %}Gestion des entrées{% endblock %}
+
+{% block head %}Entrées{% endblock %}
+
+{% block body %}
+    <div class="container col-md-12">
+        
+        <div class="row">
+            <div class="container col-md-6">
+            <div class="card">
+                <h4 class="card-header text-center">Liste des entrées</h4>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <th>ID</th>
+                        <th>PRODUIT</th>
+                        <th>QTE</th>
+                        <th>PRIX</th>
+                        <th>DATE</th>
+                    {% for e in entrees %}
+                        <tr>
+                            <td>{{ e.id }}</td>
+                            <td>{{ e.produit }}</td>
+                            <td>{{ e.qteEntree }}</td>
+                            <td>{{ e.prix }}</td>
+                            <td class="text-left">{{ e.dateEntree | date('d/m/y') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+         <div class="container col-md-6">
+            <div class="card">
+                <h4 class="card-header text-center">Formulaire de gestion des entrées</h4>
+                <div class="card-body mt-3">
+                     {{ form(form) }} 
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

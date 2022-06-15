@@ -4,14 +4,24 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            provider: app_user_provider
+            custom_authenticator: App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+            access_denied_handler: App\Security\AccessDeniedHandler
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -22,8 +32,16 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/home$, roles: [ROLE_ADMIN, ROLE_GERANT, ROLE_USER, ROLE_GESSTOCK, ROLE_VENDEUR] }
+        - { path: ^/User/liste$, roles: ROLE_ADMIN }
+        - { path: ^/User/ajout$, roles: ROLE_ADMIN }
+        - { path: ^/Categorie/*$, roles: ROLE_GERANT }    
+        - { path: ^/Produit/*$, roles: ROLE_GERANT }
+        - { path: ^/Entree/liste$, roles: ROLE_GESSTOCK }
+        - { path: ^/Entree/ajout$, roles: ROLE_GESSTOCK }
+        - { path: ^/Sortie/liste$, roles: ROLE_VENDEUR }
+        - { path: ^/Sortie/ajout$, roles: ROLE_VENDEUR }
+        #   - { path: ^/login$, roles: IS_AUTHENTICATED_ANOUNYMOUSLY }
 
 when@test:
     security:

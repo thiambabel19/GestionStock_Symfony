@@ -1,0 +1,48 @@
+{% extends 'accueil.html.twig' %}
+
+{% block title %}Gestion des sorties{% endblock %}
+
+{% block head %}Sorties{% endblock %}
+
+{% block body %}
+    <div class="container col-md-12">
+        
+        <div class="row">
+            <div class="container col-md-6">
+            <div class="card">
+                <h4 class="card-header text-center">Liste des sorties</h4>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <th>ID</th>
+                        <th>PRODUIT</th>
+                        <th>QTE</th>
+                        <th>PRIX</th>
+                        <th>DATE</th>
+                    {% for s in sorties %}
+                        <tr>
+                            <td>{{ s.id }}</td>
+                            <td>{{ s.produit }}</td>
+                            <td>{{ s.qteSortie }}</td>
+                            <td>{{ s.prixSortie }}</td>
+                            <td class="text-left">{{ s.dateSortie | date('d/m/y') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+         <div class="container col-md-6">
+            <div class="card">
+                <h4 class="card-header text-center">Formulaire de gestion des sorties</h4>
+                <div class="card-body mt-3">
+                    {% if error_message is defined %}
+                        <div class="alert alert-danger">{{error_message}}</div>
+                    {% endif %}
+
+                    {{ form(form) }} 
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

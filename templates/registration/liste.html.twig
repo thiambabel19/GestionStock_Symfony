@@ -1,0 +1,39 @@
+{% extends 'accueil.html.twig' %}
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block head %}Utilisateur{% endblock %}
+
+{% block body %}
+  
+    <div class="container col-md-12">
+        
+        <div class="row">
+            <div class="container col-md-12">
+            <div class="card">
+                <h4 class="card-header text-center">Liste des utilisateurs</h4>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <th>ID</th>
+                        <th>PRENOM</th>
+                        <th>NOM</th>
+                        <th>EMAIL</th>
+                        <th>RÔLE</th>
+                    {% for u in utilisateurs %}
+                        <tr>
+                            <td>{{ u.id }}</td>
+                            <td>{{ u.prenom }}</td>
+                            <td>{{ u.nom }}</td>
+                            <td>{{ u.email }}</td>
+                             <td class="text-left">
+                                 {% for roles in u.roles %}
+                                    {{ roles }}
+                                {% endfor %}
+                             </td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+   </div>
+{% endblock %}
